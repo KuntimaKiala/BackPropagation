@@ -10,7 +10,7 @@ if __name__ == "__main__" :
     
     
     data = read_data("/home/kuntima/workspace/github/BackPropagation/data/wheat-seeds-binary.csv")
-    epoch = 10
+    epoch = 3
     net = {"layers" :{1:{"neurons":7,     "parameters":{}},
                         2:{"neurons":5,         "parameters":{}},
                         3:{"neurons":1,    "parameters":{}},
@@ -24,7 +24,7 @@ if __name__ == "__main__" :
         n = data.shape[0]//2
         #The class values are 1,2 but we want them to be 0,1, so we subtract 1 from the column 'Class'
         # Divide the data in train and test, half for each
-        X_train, y_train =  data[:n,:-1], data[:n,-1].reshape(-1, 1) -1 
+        X_train, y_train =  data[:n,:-1], data[:n,-1].reshape(-1, 1) -1
         X_test,  y_test  =  data[n:,:-1], data[n:,-1].reshape(-1, 1) -1 
         net.train(X_train, y_train, iter=100, mode="sigmoid")
         net.test(X_test,y_test)

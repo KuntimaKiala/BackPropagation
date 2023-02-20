@@ -12,7 +12,7 @@ class NetWork:
                                                 5:{"neurons":2, "cost":0}}}) -> None:
         self.learning_rate = learning_rate
         self.networkstructure = networkstructure
-        self.L = len(self.networkstructure["layers"])  # Last layer
+        self.L = len(self.networkstructure["layers"])  # number of layers, totals of layers is L - 1, the Layer L is only to facilitate when initializing the weights, normally it not have neurons
         self.networkstructure = self.initialize_network(self.networkstructure, 'Xavier')
         self.a0 = 0
     
@@ -28,7 +28,7 @@ class NetWork:
                self.networkstructure["layers"][i+1]["parameters"]["W" ]  =  self.xavier_initialization(networkstructure["layers"][i]["neurons"], networkstructure["layers"][i+1]["neurons"] )
                self.networkstructure["layers"][i+1]["parameters"]["b"]   =  np.ones((networkstructure["layers"][i+1]["neurons"],1))
                self.networkstructure["layers"][i+1]["parameters"]["a"]   =  np.ones((networkstructure["layers"][i+1]["neurons"],1))
-        
+        # TODO : other methods for initializing
            
         
         return networkstructure
@@ -119,7 +119,7 @@ class NetWork:
                 
     def fowardpropagation(self,X, mode="sigmoid")->None :    
         self.a0 = X.reshape(-1,1)
-        # Calcuclating the activation for the first layer
+        # Calculating the activation for the first layer
         # First Layer : a[0] = X
         self.networkstructure["layers"][1]["parameters"]["Z"] = self.networkstructure["layers"][1]["parameters"]["W"].T @ self.a0 + self.networkstructure["layers"][1]["parameters"]["b"]
         self.networkstructure["layers"][1]["parameters"]["a"] = self.sigmoid(self.networkstructure["layers"][1]["parameters"]["Z"])
